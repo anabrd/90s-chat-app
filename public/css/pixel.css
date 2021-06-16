@@ -7691,11 +7691,11 @@ a:hover,
     margin: 2%;
 }
 
-#chat-box {
+#chat-box-container {
     height: 400px;
 }
 
-#chat-box > textarea {
+#chat-box-container > textarea {
     height: 100%;
 }
 
@@ -7705,4 +7705,24 @@ a:hover,
 
 ul {
     list-style-type: none;
+}
+
+#user-channel-list-container {
+    height: 371px;
+}
+
+#user-channel-list {
+    height: 100%;
+    padding: 0;
+}
+
+.li-item {
+    margin: 0;
+    padding: 2px 3px;
+    cursor: pointer;
+}
+
+.active-li {
+    background-color: #000181;
+    color: white;
 }

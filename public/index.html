@@ -18,6 +18,8 @@
     <link type="text/css" rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <!-- Pixel CSS -->
     <link type="text/css" rel="stylesheet" href="css/pixel.css">
+    <script src="http://localhost:8000/socket.io/socket.io.js"></script>
+    <script async src="main.js"></script>
 </head>
 
 <body class="h-100vh bg-secondary ">
@@ -30,18 +32,27 @@
                 <div class="card-header col-lg-12">
                     90s Chat Room™ - ©2021
                 </div>
-                <div id="chat-box" class="card-body col-lg-12">
-                    <ul placeholder="Type away..." class="form-control w-100 h-100">
-                        <li>Hi! You have logged into the chat room.</li>
-                    </ul>
+                <div class="d-flex">
+                    <div id="user-channel-list-container"  class="card-body col-lg-2"> 
+                        <div class="d-flex">
+                            <button id="channels" class="btn btn-sm col-lg-6 btn-primary border-dark" onclick="listToggler('channels')"><span class="btn-text">#</span></button>
+                            <button id="users" class="btn btn-sm col-lg-6 btn-primary border-dark" onclick="listToggler('users')"><span class="btn-text">👥</span></button>
+                        </div>
+                        <ul id="user-channel-list" class="bg-white form-control"></ul>
+                    </div>
+                    <div id="chat-box-container" class="card-body col-lg-12">
+                        <ul id="chat-box" placeholder="Type away..." class="form-control w-100 h-100">
+                            <li>Hi! You have logged into the chat room.</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="card-footer col-lg-12">
                     <div class="d-flex align-items-center">
                         <div class="card-body col-lg-12">
-                            <input type="text" placeholder="Type away..." class="form-control w-100">
+                            <input id="msg-box" type="text" placeholder="Type away..." class="form-control w-100">
                         </div>
-                        <button class="btn btn-sm mr-2 btn-primary border-dark" type="button"><span
+                        <button class="btn btn-sm mr-2 btn-primary border-dark" type="button" onclick="clickHandler()"><span
                                 class="btn-text"><span class="first-letter">S</span>end</span></button>
                         <button class="btn btn-sm btn-primary" type="button"><span class="btn-text"><span
                                     class="first-letter">C</span>ancel</span></button>

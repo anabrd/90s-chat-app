@@ -1,3 +1,8 @@
+// TODO: Edit nickname option
+// - Add channel option
+// - Remove user from list when they logout
+// - Add private messaging
+
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 8000;
@@ -15,7 +20,7 @@ const channels = ["General", "Work", "Hobbies"];
 const users = [];
 
 io.on('connection', (socket) => {
-    
+
     socket.emit('channels', channels);
 
     socket.on('token', token => {
@@ -26,7 +31,10 @@ io.on('connection', (socket) => {
             }
             let token = jwt.sign({nickName}, 'fsdkjfniw3y3424', {expiresIn: '1d'})
             const ticket = {token, nickName}
-            users.push(nickName)
+            let existCheck = users.filter(user => user == nickName)
+            if (existCheck.length == 0) {
+                users.push(nickName);
+            }
             return ticket;
         }
 
@@ -51,12 +59,12 @@ io.on('connection', (socket) => {
     })
 
     socket.on('chat message', envelope => {
-        if (envelope.user) {
-            // message will go to user
-        } else {
+        // if (envelope.user) {
+        //     // message will go to user
+        // } else {
             // This will send the message back to all clients (that's why we use io instead of socket)
             io.emit('chat msg', envelope)
-        }
+        // }
         
     })
 

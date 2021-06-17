@@ -5,7 +5,8 @@ const state = {
     users: [],
     channels: [],
     activeChannel: 'General',
-    activeUser: null
+    activeUser: null,
+    usedChannels: []
 }
 
 const clickHandler = () => {
@@ -16,10 +17,19 @@ const clickHandler = () => {
 }
 
 const listItemSelect = (name) => {
+    console.log(name);
     const preItem = state.activeChannel;
     state.activeChannel = name;
     document.querySelector(`#${preItem}`).classList.remove('active-li');
     document.querySelector(`#${name}`).classList.add('active-li');
+    if(!state.usedChannels[name]){
+            state.usedChannels[name] = [];
+        }
+        console.log(state.usedChannels);
+        document.querySelector('#chat-box').innerHTML = '';
+        state.usedChannels[state.activeChannel].forEach( msg => {
+            document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li>${msg}</li>`);
+    });
 }
 
 function listToggler(activeList) {
@@ -40,7 +50,14 @@ socket.on('ticket', ticket => {
 })
 
 socket.on('chat msg', envelope => {
-    console.log(document.querySelector("#chat-box"))
+    Object.keys(state.usedChannels).forEach( key => {
+        if(envelope.channel == key) {
+            state.usedChannels[key].push(envelope.msg);
+        }
+
+        console.log(state.usedChannels[key]);
+    });
+
     if (state.activeChannel == envelope.channel) {
         document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li>${envelope.msg}</li>`);
     }

@@ -7722,7 +7722,13 @@ ul {
     cursor: pointer;
 }
 
-.active-li {
+.li-item:hover {
+    background-color: lightgrey;
+}
+
+.li-item:active,
+.active-li,
+.active-li:hover {
     background-color: #000181;
     color: white;
 }

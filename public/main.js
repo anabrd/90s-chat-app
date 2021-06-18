@@ -28,7 +28,12 @@ const listItemSelect = (name) => {
             state.usedChannels[name] = [];
         }
         console.log(state.usedChannels);
-        document.querySelector('#chat-box').innerHTML = `<li class="text-info">Welcome to <b>#${state.activeChannel}</b> channel!`;
+
+        if (state.list == "channels") {
+            document.querySelector('#chat-box').innerHTML = `<li class="text-info">Welcome to <b>#${state.activeChannel}</b> channel!`;
+        } else {
+            document.querySelector('#chat-box').innerHTML = `<li class="text-info">Here is where you can send #${state.activeChannel} a private message.`;
+        }
         state.usedChannels[state.activeChannel].forEach( msg => {
             document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li>${msg}</li>`);
     });

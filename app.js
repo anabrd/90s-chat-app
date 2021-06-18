@@ -21,7 +21,7 @@ const users = [];
 
 io.on('connection', (socket) => {
 
-    socket.emit('channels', channels);
+
 
     socket.on('token', token => {
 
@@ -56,6 +56,7 @@ io.on('connection', (socket) => {
             socket.emit("ticket", ticketHandler());
         }
         io.emit('users', users);
+        socket.emit('channels', channels);
     })
 
     socket.on('chat message', envelope => {

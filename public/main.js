@@ -40,6 +40,10 @@ function listToggler(activeList) {
     state[state.list].forEach(item => {
         document.querySelector("#user-channel-list").insertAdjacentHTML("beforeend", `<li id="${item}" class="li-item" onclick="listItemSelect('${item}')">${item}</li>`);
     })
+
+    if (activeList == "channels") {
+        document.querySelector("#user-channel-list").insertAdjacentHTML("beforeend", `<button id="add-channel-btn" class="btn col-lg-12 btn-primary" onclick="">Add New Channel</li>`);
+    }
 }
 
 socket.emit('token', sessionStorage.getItem('token'));

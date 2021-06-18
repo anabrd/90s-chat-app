@@ -7714,6 +7714,9 @@ ul {
 #user-channel-list {
     height: 100%;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 
 .li-item {
@@ -7735,4 +7738,8 @@ ul {
 
 .text-nick {
     font-weight: bold;
+}
+
+#add-channel-btn {
+    margin-top: auto;
 }

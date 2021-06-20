@@ -56,7 +56,6 @@ const clickHandler = () => {
 
 const listItemSelect = (name) => {
     let preItem;
-    console.log(state.list, "state.list before if/else")
     // FOR CHANNELS
     if (state.list == "channels") {
         state.toUser = null;
@@ -112,20 +111,17 @@ function listToggler(activeList) {
 
     if (activeList == "channels") {
         document.querySelector("#user-channel-list").insertAdjacentHTML("beforeend", `<button id="add-channel-btn" class="btn col-lg-12 btn-primary" onclick="addChannel()">Add New Channel</li>`);
-        if (!state.activeChannel) {
-            listItemSelect("General");
-        }
     } else {
         document.querySelector("#user-channel-list").insertAdjacentHTML("beforeend", `<button id="add-channel-btn" class="btn col-lg-12 btn-primary" onclick="editNickname()">Edit Nickname</li>`);
     }
-
-
 }
 
 socket.emit('token', sessionStorage.getItem('token'));
 
 socket.on('ticket', ticket => {
-    document.querySelector("#chat-box").insertAdjacentHTML("beforeend", `<li>${ticket.nickName} has joined the chat</li>`);
+    setTimeout(() => {
+        document.querySelector("#chat-box").insertAdjacentHTML("beforeend", `<li>${ticket.nickName} has joined the chat</li>`);
+    }, 200);
     sessionStorage.setItem('token', ticket.token);
     state.activeUser = ticket.nickName;
 })
@@ -172,7 +168,10 @@ socket.on('users', users => {
 
 socket.on('channels', channels => {
     state.channels = channels;
-    listToggler('channels')
+    listToggler('channels');
+    if (!state.activeChannel) {
+        listItemSelect("General");
+    }
 });
 
 

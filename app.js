@@ -77,16 +77,22 @@ io.on('connection', (socket) => {
     })
 
     socket.on('edit nickname', nickObj => {
-        //Filter for oldnickname, find index, splice the array at that index and insert newNickname
+        //Filter for oldnickname, find index, splice the array at that index and insert newNickname + add token for new nick
         let oldNick = nickObj.oldNick;
         let index = users.indexOf(oldNick);
-        nickName = nickObj.newNick
+        nickName = nickObj.newNick;
         users.splice(index, 1, nickName);
         let token = jwt.sign({nickName}, 'fsdkjfniw3y3424', {expiresIn: '1d'});
         const ticket = {token, nickName};
         socket.emit("ticket", ticket);
         io.emit('users', users);
     });
+
+    socket.on('add channel', newChannel => {
+        console.log(newChannel);
+        channels.push(newChannel);
+        io.emit('channels', channels)
+    })
 
     socket.on('disconnect', () => {
         console.log('A user disconnected.');

@@ -39,6 +39,12 @@ const cancelChannel = () => {
     document.querySelector("#card-main").classList.add("card-tertiary");
 }
 
+const submitChannel = () => {
+    let newChannel = document.querySelector("#new-channel").value;
+    console.log(newChannel);
+    socket.emit('add channel', newChannel);
+    cancelChannel();
+}
 
 const clickHandler = () => {
     let msg = document.querySelector("#msg-box");
@@ -85,7 +91,7 @@ const listItemSelect = (name) => {
         console.log("state toUser after", state.toUser)
         document.querySelector(`#${name}`).classList.add('active-li');
         
-        document.querySelector('#chat-box').innerHTML = `<li class="text-info">Here is where you can send #${state.toUser} a private message.<li>`;
+        document.querySelector('#chat-box').innerHTML = `<li class="text-info">Here is where you can send ${state.toUser} a private message.<li>`;
         
         //state.usedDMs[state.toUser].forEach(msg => {
             //document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li><span class="text-nick">${state.toUser}:</span>${msg}</li>`);
@@ -106,9 +112,14 @@ function listToggler(activeList) {
 
     if (activeList == "channels") {
         document.querySelector("#user-channel-list").insertAdjacentHTML("beforeend", `<button id="add-channel-btn" class="btn col-lg-12 btn-primary" onclick="addChannel()">Add New Channel</li>`);
+        if (!state.activeChannel) {
+            listItemSelect("General");
+        }
     } else {
         document.querySelector("#user-channel-list").insertAdjacentHTML("beforeend", `<button id="add-channel-btn" class="btn col-lg-12 btn-primary" onclick="editNickname()">Edit Nickname</li>`);
     }
+
+
 }
 
 socket.emit('token', sessionStorage.getItem('token'));

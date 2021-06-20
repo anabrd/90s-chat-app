@@ -26,17 +26,19 @@
     <main class=" w-100 d-flex flex-column align-items-center">
         <section class="justify-content-between w-100 d-flex flex-column align-items-center overflow-hidden z-2">
             <h1 id="title" class="text-primary">
-                <marquee>>Welcome to the '90s chatroom!</marquee>
+                <marquee>Welcome to the '90s chatroom!</marquee>
             </h1>
-            <div class="card card-tertiary col-lg-10 p-0">
+            <div id="card-main" class="card card-tertiary col-lg-10 p-0">
                 <div class="card-header col-lg-12">
                     90s Chat Room™ - ©2021
                 </div>
                 <div class="d-flex">
-                    <div id="user-channel-list-container"  class="card-body col-lg-2"> 
+                    <div id="user-channel-list-container" class="card-body col-lg-2">
                         <div class="d-flex">
-                            <button id="channels" class="btn btn-sm col-lg-6 border-dark" onclick="listToggler('channels')"><span class="btn-text">#</span></button>
-                            <button id="users" class="btn btn-sm col-lg-6 border-dark" onclick="listToggler('users')"><span class="btn-text">👥</span></button>
+                            <button id="channels" class="btn btn-sm col-lg-6 border-dark"
+                                onclick="listToggler('channels')"><span class="btn-text">#</span></button>
+                            <button id="users" class="btn btn-sm col-lg-6 border-dark"
+                                onclick="listToggler('users')"><span class="btn-text">👥</span></button>
                         </div>
                         <ul id="user-channel-list" class="bg-white form-control"></ul>
                     </div>
@@ -52,13 +54,58 @@
                         <div class="card-body col-lg-12">
                             <input id="msg-box" type="text" placeholder="Type away..." class="form-control w-100">
                         </div>
-                        <button class="btn btn-sm mr-2 btn-primary border-dark" type="button" onclick="clickHandler()"><span
-                                class="btn-text"><span class="first-letter">S</span>end</span></button>
+                        <button class="btn btn-sm mr-2 btn-primary border-dark" type="button"
+                            onclick="clickHandler()"><span class="btn-text"><span
+                                    class="first-letter">S</span>end</span></button>
                         <button class="btn btn-sm btn-primary" type="button"><span class="btn-text"><span
                                     class="first-letter">C</span>ancel</span></button>
                     </div>
                 </div>
             </div>
+
+
+            <!-- Forms -->
+            <div id="edit-nickname" class="col-12 col-lg-6 mb-4 mb-lg-0">
+                <div class="card card-tertiary">
+                    <div class="card-header">
+                        Edit Nickname
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Choose your new nickname!</p>
+                        <div class="form-group d-flex align-items-center justify-content-between">
+                            <label for="new-nickname" class="mr-3">Enter your nickname:</label>
+                            <input id="new-nickname" type="text" class="form-control w-75" />
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button class="btn btn-sm mr-2 btn-primary border-dark" type="button"
+                                onclick="submitNickname()"><span class="btn-text">OK</span></button>
+                            <button class="btn btn-sm btn-primary" type="button" onclick="cancelNickname()"><span
+                                    class="btn-text">Cancel</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="add-channel" class="col-12 col-lg-6 mb-4 mb-lg-0">
+                <div class="card card-tertiary">
+                    <div class="card-header">
+                        Add New Channel
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group d-flex align-items-center justify-content-between">
+                            <label for="new-channel" class="mr-3">Enter channel name:</label>
+                            <input id="new-channel type="text" class="form-control w-75" />
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button class="btn btn-sm mr-2 btn-primary border-dark" type="button" onclick="submitChannel()"><span
+                                    class="btn-text" >OK</span></button>
+                            <button class="btn btn-sm btn-primary" type="button" onclick="cancelChannel()"><span
+                                    class="btn-text" >Cancel</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
         <nav id="navbar-footer" class="navbar navbar-main navbar-expand-lg navbar-dark justify-content-between">
             <ul class="navbar-nav navbar-nav-hover flex-row align-items-center">

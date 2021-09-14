@@ -1,5 +1,4 @@
 // TODO: Edit nickname option
-// - Add channel option
 // - Remove user from list when they logout
 // - Add private messaging
 // - Sort user array so current user is always on top, customize user color
@@ -21,9 +20,9 @@ app.use(express.static(__dirname + "/public"));
 
 const channels = ["General", "Work", "Hobbies"];
 const users = [];
+
+// USE CAN USE MAP TO FILTER USER DUPLICATES ON REFRESH
 const usersMap = {};
-
-
 
 io.on('connection', (socket) => {
 
@@ -94,6 +93,7 @@ io.on('connection', (socket) => {
         io.emit('channels', channels)
     })
 
+    // TODO
     socket.on('disconnect', () => {
         console.log('A user disconnected.');
     })

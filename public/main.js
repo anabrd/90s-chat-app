@@ -75,7 +75,7 @@ const listItemSelect = (name) => {
         
         document.querySelector('#chat-box').innerHTML = `<li class="text-info">Welcome to <b>#${state.activeChannel}</b> channel!`;
         state.usedChannels[state.activeChannel].forEach(msg => {
-            document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li>${msg}</li>`);
+            document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li><span class="text-nick">${msg.fromUser}: </span>${msg.msg}</li>`);
         })
 
     // FOR DMS
@@ -90,7 +90,9 @@ const listItemSelect = (name) => {
         console.log("state toUser after", state.toUser)
         document.querySelector(`#${name}`).classList.add('active-li');
         
-        document.querySelector('#chat-box').innerHTML = `<li class="text-info">Here is where you can send ${state.toUser} a private message.<li>`;
+
+        
+            document.querySelector('#chat-box').innerHTML = `<li class="text-info">Here is where you can send ${state.toUser} a private message.<li>`;
         
         //state.usedDMs[state.toUser].forEach(msg => {
             //document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li><span class="text-nick">${state.toUser}:</span>${msg}</li>`);
@@ -111,8 +113,10 @@ function listToggler(activeList) {
 
     if (activeList == "channels") {
         document.querySelector("#user-channel-list").insertAdjacentHTML("beforeend", `<button id="add-channel-btn" class="btn col-lg-12 btn-primary" onclick="addChannel()">Add New Channel</li>`);
+        listItemSelect("General");
     } else {
         document.querySelector("#user-channel-list").insertAdjacentHTML("beforeend", `<button id="add-channel-btn" class="btn col-lg-12 btn-primary" onclick="editNickname()">Edit Nickname</li>`);
+        listItemSelect(state.activeUser);
     }
 }
 
@@ -147,13 +151,14 @@ socket.on('receive message', envelope => {
     } else {
         Object.keys(state.usedChannels).forEach(key => {
             if (envelope.channel == key) {
-                state.usedChannels[key].push(envelope.msg);
+                state.usedChannels[key].push(envelope);
             }
             console.log(state.usedChannels[key]);
         })
 
         if (state.activeChannel == envelope.channel) {
-            document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li><span class="text-nick">${envelope.fromUser}:</span> ${envelope.msg}</li>`);
+            document.querySelector('#chat-box')
+            .insertAdjacentHTML("beforeend", `<li><span class="text-nick">${envelope.fromUser}:</span> ${envelope.msg}</li>`);
         }
     };
 

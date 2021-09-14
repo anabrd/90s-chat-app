@@ -91,9 +91,11 @@ const listItemSelect = (name) => {
         document.querySelector(`#${name}`).classList.add('active-li');
         
 
-        
+        if (state.activeUser == state.toUser) {
+            document.querySelector('#chat-box').innerHTML = `<li class="text-info">This is your home. Talk to yourself if you really need to.<li>`;
+        } else {
             document.querySelector('#chat-box').innerHTML = `<li class="text-info">Here is where you can send ${state.toUser} a private message.<li>`;
-        
+        }
         //state.usedDMs[state.toUser].forEach(msg => {
             //document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li><span class="text-nick">${state.toUser}:</span>${msg}</li>`);
         //})
